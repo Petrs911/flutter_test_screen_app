@@ -14,13 +14,14 @@ class AvatarsInTrend extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: EdgeInsets.all(deviceWidth / 36),
       child: Column(
         children: [
           CircleAvatar(
             backgroundImage: AssetImage('assets/images/avatars/$userPhoto'),
-            radius: 30.0,
+            radius: deviceWidth / 12,
           ),
           SizedBox(height: deviceHeight / 50),
           Text(

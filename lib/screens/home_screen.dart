@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutter_test_screen_app/data/users_in_trend_list.dart';
 import 'package:flutter_test_screen_app/styles/app_icons.dart';
-import 'package:flutter_test_screen_app/widgets/avatars_in_trend.dart';
 import 'package:flutter_test_screen_app/widgets/colorful_text_widget.dart';
+import 'package:flutter_test_screen_app/widgets/list_view_for_avatars.dart';
+import 'package:flutter_test_screen_app/widgets/list_view_for_content.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -44,9 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: EdgeInsets.only(right: deviceWidth / 24),
                   child: IconButton(
-                    onPressed: () {
-                      print(deviceWidth);
-                    },
+                    onPressed: () {},
                     icon: Icon(AppIcons.paperPlane),
                   ),
                 ),
@@ -63,9 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            AvatarsInTrend(
-                userName: UsersInTrendList.usersInTrend[5]['userName'],
-                userPhoto: UsersInTrendList.usersInTrend[5]['userPhoto']),
+            ListViewForAvatars(),
+            Divider(),
+            ListViewForContent(),
           ],
         ),
       ),
