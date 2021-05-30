@@ -12,7 +12,7 @@ class ListViewForAvatars extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Expanded(
-        flex: 1,
+        flex: 2,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: data.length,

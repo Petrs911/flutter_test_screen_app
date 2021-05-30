@@ -1,72 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'package:flutter_test_screen_app/styles/app_icons.dart';
-import 'package:flutter_test_screen_app/widgets/colorful_text_widget.dart';
-import 'package:flutter_test_screen_app/widgets/list_view_for_avatars.dart';
-import 'package:flutter_test_screen_app/widgets/list_view_for_content.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:flutter_test_screen_app/screens/pages/chat_page.dart';
+import 'package:flutter_test_screen_app/screens/pages/friends_page.dart';
+import 'package:flutter_test_screen_app/screens/pages/home_page.dart';
+import 'package:flutter_test_screen_app/screens/pages/message_page.dart';
+import 'package:flutter_test_screen_app/screens/pages/search_page.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _controller;
+
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ));
+    _controller = TabController(initialIndex: 2, length: 5, vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeight = MediaQuery.of(context).size.height;
-    final deviceWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: deviceHeight / 42),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: deviceWidth / 36),
-                  child: const ColorfulWidgetText(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: deviceWidth / 24),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(AppIcons.paperPlane),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: deviceHeight / 60),
-            Padding(
-              padding: EdgeInsets.only(left: deviceWidth / 36),
-              child: const Text(
-                'Trending',
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-            ListViewForAvatars(),
-            Divider(),
-            ListViewForContent(),
+        child: TabBarView(
+          controller: _controller,
+          children: [
+            MessagePage(),
+            SearchPage(),
+            HomePage(),
+            ChatPage(),
+            FriendsPage(),
           ],
         ),
+      ),
+      bottomNavigationBar: ConvexAppBar.badge(
+        {2: ''},
+        controller: _controller,
+        curveSize: 20,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        items: _tabItems,
       ),
     );
   }
 }
+
+const _tabItems = [
+  TabItem(
+    icon: Icon(Icons.email),
+    activeIcon: Icon(Icons.email, size: 40),
+  ),
+  TabItem(
+    icon: Icon(Icons.search),
+    activeIcon: Icon(Icons.search, size: 40),
+  ),
+  TabItem(
+    icon: Icon(Icons.camera),
+    activeIcon: Icon(Icons.camera, size: 40, color: Colors.purple),
+  ),
+  TabItem(
+    icon: Icon(Icons.message_rounded),
+    activeIcon: Icon(Icons.message_rounded, size: 40),
+  ),
+  TabItem(
+    icon: Icon(Icons.person_outline),
+    activeIcon: Icon(Icons.person_outline, size: 40),
+  ),
+];

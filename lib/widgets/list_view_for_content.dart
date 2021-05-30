@@ -9,7 +9,7 @@ class ListViewForContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 3,
+      flex: 6,
       child: ListView.builder(
         itemCount: data.length,
         itemBuilder: (context, index) => ContainerWithContent(
